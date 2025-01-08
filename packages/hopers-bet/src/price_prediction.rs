@@ -1,18 +1,14 @@
+use cosmwasm_schema::cw_serde;
 use cosmwasm_std::{Addr, Decimal, Timestamp, Uint128};
-use partial_derive::Partial;
-use schemars::JsonSchema;
-use serde::{Deserialize, Serialize};
-
 pub const FEE_PRECISION: u128 = 100u128;
 
-#[derive(Serialize, Deserialize, Clone, Debug, JsonSchema)]
-#[serde(rename_all = "snake_case")]
+#[cw_serde]
 pub enum Direction {
     Bull,
     Bear,
 }
 
-#[derive(Serialize, Deserialize, Clone, Debug, JsonSchema)]
+#[cw_serde]
 pub struct MigrateMsg {}
 
 impl ToString for Direction {
@@ -25,9 +21,7 @@ impl ToString for Direction {
     }
 }
 
-#[derive(Partial)]
-#[derive(Serialize, Deserialize, Clone, Debug, JsonSchema)]
-#[serde(rename_all = "snake_case")]
+#[cw_serde]
 /**
  * Parameters which are mutable by a governance vote
  */
@@ -40,8 +34,7 @@ pub struct Config {
     pub gaming_fee: Uint128,
     pub token_addr: Addr,
 }
-#[derive(Serialize, Deserialize, Clone, Debug, JsonSchema)]
-#[serde(rename_all = "snake_case")]
+#[cw_serde]
 pub struct NextRound {
     pub id: Uint128,
     pub bid_time: Timestamp,
@@ -51,8 +44,7 @@ pub struct NextRound {
     pub bear_amount: Uint128,
 }
 
-#[derive(Serialize, Deserialize, Clone, Debug, JsonSchema)]
-#[serde(rename_all = "snake_case")]
+#[cw_serde]
 pub struct LiveRound {
     pub id: Uint128,
     pub bid_time: Timestamp,
@@ -63,8 +55,7 @@ pub struct LiveRound {
     pub bear_amount: Uint128,
 }
 
-#[derive(Serialize, Deserialize, Clone, Debug, JsonSchema)]
-#[serde(rename_all = "snake_case")]
+#[cw_serde]
 pub struct FinishedRound {
     pub id: Uint128,
     pub bid_time: Timestamp,
@@ -80,15 +71,13 @@ pub struct FinishedRound {
 pub mod msg {
     use super::*;
 
-    #[derive(Serialize, Deserialize, Clone, Debug, JsonSchema)]
-    #[serde(rename_all = "snake_case")]
+    #[cw_serde]
     pub struct InstantiateMsg {
         /* Mutable params */
         pub config: Config,
     }
 
-    #[derive(Serialize, Deserialize, Clone, Debug, JsonSchema)]
-    #[serde(rename_all = "snake_case")]
+    #[cw_serde]
     pub enum ExecuteMsg {
         /**
          * Update part of or all of the mutable config params
